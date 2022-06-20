@@ -1,6 +1,3 @@
-from matplotlib import animation
-from numpy import size
-from pyparsing import line
 import streamlit as st
 import pandas as pd
 import matplotlib.pyplot as plt

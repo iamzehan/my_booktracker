@@ -1,6 +1,6 @@
 import streamlit as st
-import streamlit as st
 import pandas as pd
+
 st.set_page_config(page_title="Finished",page_icon="🏁")
 df=pd.read_csv('./data/books.csv')
 st.header("🏁 Books that you've Finished")
