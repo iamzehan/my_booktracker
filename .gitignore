@@ -1,0 +1,5 @@
+.streamlit
+__pycache__
+run.sh
+virtualenvironment.sh
+style.css
