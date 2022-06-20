@@ -3,7 +3,6 @@ import pandas as pd
 
 st.set_page_config(page_title="Add Book", page_icon="📚")
 
-@st.cache
 def save_data(data):
     return data.to_csv('./data/books.csv',index=False)
 def cancel_data(data,id):

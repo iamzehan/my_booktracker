@@ -12,7 +12,6 @@ status=st.radio('Choose:',['Ongoing','Upcoming'],horizontal=True)
 
 books_df=df[df['status']==status]
 
-@st.cache
 def save_data(data):
     return data.to_csv('./data/books.csv',index=False)
 
@@ -48,33 +47,31 @@ elif edited_page!=filtered_data['current_page'] and edited_chapter==filtered_dat
 elif edited_page==filtered_data['current_page'] and edited_chapter!=filtered_data['current_chapter']:
     filtered_data['current_chapter']=edited_chapter
     subs.append("current_chapter")
+
 if len(subs)!=0:
     st.write('Changing:')
-count=1
-for item in subs:
-    st.write(f'```{item}```')
-    count+=1
+    count=1
+    for item in subs:
+        st.write(f'```{item}```')
+        count+=1
 
 # This section updates the DataFrame
 update=st.button('Update') # This is the update button that regulates the data to be saved on the disk
 
 if update: # if "Update" is pressed
-    
     id=int(filtered_data["id"]) # for disambiguity of the data, we have chosen the index value from the data that is filtered into the dictionary - "filtered_data={}"
-    
     if len(subs)==1: #either current_page or current_chapter edited
         df_exp.loc[[id],subs[0]]=filtered_data[subs[0]]
-    
     elif len(subs)==2: # both current_page and current_chapter edited
-        if subs==["current_chapter","current_page"]:
+        if subs==["current_chapter","current_page"] or subs==["current_page","current_chapter"]:
             df_exp.loc[[id],["current_chapter","current_page"]]= filtered_data["current_chapter"],filtered_data["current_page"] 
-        elif subs==["current_page","status"]:
+        elif subs==["current_page","status"] or subs==["status","current_page"]:
             st.write('```Finished```')
             df_exp.loc[[id],["current_chapter","current_page","status"]]=filtered_data["current_chapter"],filtered_data["current_page"],"Finished"
-
     elif len(subs)==3: # this only occurs when a book from the Upcoming section changes it's current_page, current_chapter and so the status gets changed as well.
         if status=="Upcoming":
             df_exp.loc[[id],["current_chapter","current_page","status"]]=filtered_data["current_chapter"],filtered_data["current_page"],"Ongoing"
+    
     if df_exp["current_chapter"][id] != df["current_chapter"][id] or df_exp["current_page"][id] != df["current_page"][id]:
         st.subheader("Previous Data")
         prev=df.style.apply(lambda x: ['background-color:  #791400' if (i == id) else '' for i in x.index.values],subset=subs,axis=0)
