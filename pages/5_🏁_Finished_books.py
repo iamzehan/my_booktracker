@@ -30,7 +30,7 @@ hide_streamlit_style = """
             .css-1q8dd3e{color:rgb(255, 75, 75);}
             .css-1q8dd3e:hover{color:#edf5e1; border-color:rgb(255, 75, 75);}
             .css-ffhzg2 {text-align: center;}
-            .css-17ziqus {background-color: brown;}
+            .css-17ziqus {background-color: brown; visibility: visible}
             .css-1kyxreq{display:block;}
             code{color:red; font-size:20px;}
             </style>

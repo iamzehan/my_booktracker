@@ -2,6 +2,7 @@ import streamlit as st
 import pandas as pd
 import matplotlib.pyplot as plt
 import seaborn as sns
+import math
 
 st.set_page_config(page_title="Running Books", page_icon="📖")
 df=pd.read_csv('./data/books.csv')
@@ -9,21 +10,36 @@ st.header("📖 Ongoing Books")
 st.markdown("Track books that are currently being read...")
 st.sidebar.header(" 📖 Ongoing Books")
 
-selected_option=st.radio("Select",["Show Data","Show Chart"],horizontal=True)
-
+selected_option=st.radio("Select",["Show Chart","Show Data"],horizontal=True)
 running_books_df=df[df['status']=='Ongoing']
-chapter_or_page= st.selectbox('How Do you want to track your progress?',['Chapterwise','Pagewise'])
+percentile=pd.DataFrame(columns=['title','completed','total'],data=zip(running_books_df.title,
+                                                                                [float("{0:.3g}".format(i*100)) for i in running_books_df.current_page/running_books_df.total_pages],
+                                                                                  [100 for i in range(len(running_books_df))]))
+percent_chapter_or_page= st.selectbox('How Do you want to track your progress?',["Percentagewise",'Chapterwise','Pagewise'])
 if selected_option == "Show Data":
     st.subheader("Raw Data")
-    if chapter_or_page=='Chapterwise':
+    if percent_chapter_or_page=='Percentagewise':
+        percentile=pd.DataFrame(columns=['title','completed'],data=percentile)
+        st.dataframe(percentile)
+    elif percent_chapter_or_page=='Chapterwise':
         chapterwise=pd.DataFrame(columns=['title', 'current_chapter','total_chapters'],data=running_books_df)
         st.dataframe(chapterwise)
-    elif chapter_or_page=='Pagewise':
+    elif percent_chapter_or_page=='Pagewise':
         pagewise=pd.DataFrame(columns=['title','current_page','total_pages'],data=running_books_df)
         st.dataframe(pagewise)
 elif selected_option=="Show Chart":
     st.subheader("Charts")
-    if chapter_or_page=='Chapterwise':
+    sns.set(rc={'axes.facecolor':'#0e1117','figure.facecolor':'#0e1117'})
+    if percent_chapter_or_page=='Percentagewise':
+        fig=plt.figure(figsize=(15,10))
+        plt.title("Percentage of Progress",color='white',size=30)
+        sns.barplot(x='title', y='total',color='#262730',edgecolor="1",data=percentile)
+        sns.barplot(x='title', y='completed',color='#c42b2b',edgecolor="1",data=percentile)
+        plt.xlabel('Books',color='white',size=20)
+        plt.ylabel('Pages',color='white',size=20)
+        plt.tick_params(axis='both', colors='white',size=20)
+        st.pyplot(fig)
+    elif percent_chapter_or_page=='Chapterwise':
         chapterwise=pd.DataFrame(columns=['title', 'current_chapter','total_chapters'],data=running_books_df)
         fig=fig=plt.figure(figsize=(15,10))
         plt.title("Chapterwise Progress",color='white',size=30)
@@ -32,9 +48,9 @@ elif selected_option=="Show Chart":
         plt.xlabel('Books',color='white',size=20)
         plt.ylabel('Chapters',color='white',size=20)
         plt.tick_params(axis='both', colors='white',size=20)
-        sns.set(rc={'axes.facecolor':'#0e1117', 'figure.facecolor':'#0e1117'})
+        # sns.set(rc={'axes.facecolor':'#0e1117', 'figure.facecolor':'#0e1117'})
         st.pyplot(fig)
-    elif chapter_or_page=='Pagewise':
+    elif percent_chapter_or_page=='Pagewise':
         pagewise=pd.DataFrame(columns=['title','current_page','total_pages'],data=running_books_df)
         fig=plt.figure(figsize=(15,10))
         plt.title("Pagewise Progress",color='white',size=30)
@@ -43,10 +59,10 @@ elif selected_option=="Show Chart":
         plt.xlabel('Books',color='white',size=20)
         plt.ylabel('Pages',color='white',size=20)
         plt.tick_params(axis='both', colors='white',size=20)
-        sns.set(rc={'axes.facecolor':'#0e1117','figure.facecolor':'#0e1117'})
+        
         st.pyplot(fig)
 
-
+        
 hide_streamlit_style = """
             <head>
             <style>
@@ -60,7 +76,7 @@ hide_streamlit_style = """
             .css-v37k9u p{color:#edf5e1; font-size: 18px;}
             .css-1q8dd3e{color:rgb(255, 75, 75);}
             .css-1q8dd3e:hover{color:#edf5e1; border-color:rgb(255, 75, 75);}
-            .css-17ziqus {background-color: brown;}
+            .css-17ziqus {background-color: brown; visibility: visible}
             body {text-align:center;}
             p{text-align: center;}
             </style>

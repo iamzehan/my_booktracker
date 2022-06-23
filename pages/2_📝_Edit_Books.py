@@ -98,7 +98,7 @@ hide_streamlit_style = """
             .css-v37k9u p{color:#edf5e1; font-size: 18px;}
             .css-1q8dd3e{color:rgb(255, 75, 75);}
             .css-1q8dd3e:hover{color:#edf5e1; border-color:rgb(255, 75, 75);}
-            .css-17ziqus {background-color: brown;}
+            .css-17ziqus {background-color: brown; visibility: visible}
             body{text-align:center;}
             </style>
             <title> Book Tracker </title>

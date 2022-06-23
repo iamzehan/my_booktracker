@@ -1,5 +1,5 @@
-.streamlit
+.streamlit/secrets.toml
 __pycache__
 run.sh
 virtualenvironment.sh
-style.css
+data
