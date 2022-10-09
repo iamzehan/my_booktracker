@@ -1,6 +1,6 @@
 # My Book Tracker
 
-Streamlit CRUD Demostration.
+Streamlit CRUD Demo.
 
 Features-
 
