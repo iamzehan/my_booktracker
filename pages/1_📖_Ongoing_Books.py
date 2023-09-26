@@ -10,16 +10,30 @@ st.header("📖 Ongoing Books")
 st.markdown("Track books that are currently being read...")
 st.sidebar.header(" 📖 Ongoing Books")
 
+
+
 selected_option=st.radio("Select",["Show Chart","Show Data"],horizontal=True)
-running_books_df=df[df['status']=='Ongoing']
-percentile=pd.DataFrame(columns=['title','completed','total'],data=zip(running_books_df.title,
-                                                                                [float("{0:.3g}".format(i*100)) for i in running_books_df.current_page/running_books_df.total_pages],
-                                                                                  [100 for i in range(len(running_books_df))]))
+
+
+@st.cache
+def running_books(df):
+    return df[df['status']=='Ongoing']
+
+def calculate_percentile(df):
+    percentile_df = pd.DataFrame({
+        'title': df['title'],
+        'completed': (df['current_page'] / df['total_pages']).round(2) * 100,
+        'total': 100
+    })
+    return percentile_df
+
+running_books_df=running_books(df)
 percent_chapter_or_page= st.selectbox('How Do you want to track your progress?',["Percentagewise",'Chapterwise','Pagewise'])
+
 if selected_option == "Show Data":
     st.subheader("Raw Data")
     if percent_chapter_or_page=='Percentagewise':
-        percentile=pd.DataFrame(columns=['title','completed'],data=percentile)
+        percentile=pd.DataFrame(columns=['title','completed'],data=calculate_percentile(running_books_df))
         st.dataframe(percentile)
     elif percent_chapter_or_page=='Chapterwise':
         chapterwise=pd.DataFrame(columns=['title', 'current_chapter','total_chapters'],data=running_books_df)
@@ -27,18 +41,20 @@ if selected_option == "Show Data":
     elif percent_chapter_or_page=='Pagewise':
         pagewise=pd.DataFrame(columns=['title','current_page','total_pages'],data=running_books_df)
         st.dataframe(pagewise)
+
 elif selected_option=="Show Chart":
     st.subheader("Charts")
     sns.set(rc={'axes.facecolor':'#0e1117','figure.facecolor':'#0e1117'})
     if percent_chapter_or_page=='Percentagewise':
         fig=plt.figure(figsize=(15,10))
         plt.title("Percentage of Progress",color='white',size=30)
-        sns.barplot(x='title', y='total',color='#262730',edgecolor="1",data=percentile)
-        sns.barplot(x='title', y='completed',color='#c42b2b',edgecolor="1",data=percentile)
+        sns.barplot(x='title', y='total',color='#262730',edgecolor="1",data=calculate_percentile(running_books_df))
+        sns.barplot(x='title', y='completed',color='#c42b2b',edgecolor="1",data=calculate_percentile(running_books_df))
         plt.xlabel('Books',color='white',size=20)
         plt.ylabel('Pages',color='white',size=20)
         plt.tick_params(axis='both', colors='white',size=20)
         st.pyplot(fig)
+
     elif percent_chapter_or_page=='Chapterwise':
         chapterwise=pd.DataFrame(columns=['title', 'current_chapter','total_chapters'],data=running_books_df)
         fig=fig=plt.figure(figsize=(15,10))
@@ -50,6 +66,7 @@ elif selected_option=="Show Chart":
         plt.tick_params(axis='both', colors='white',size=20)
         # sns.set(rc={'axes.facecolor':'#0e1117', 'figure.facecolor':'#0e1117'})
         st.pyplot(fig)
+
     elif percent_chapter_or_page=='Pagewise':
         pagewise=pd.DataFrame(columns=['title','current_page','total_pages'],data=running_books_df)
         fig=plt.figure(figsize=(15,10))
@@ -82,6 +99,6 @@ hide_streamlit_style = """
             </style>
             <title> Book Tracker </title>
             </head>
-            <div class="myFooter">© 2022 Copyright | Made by <a href="https://codingwithzk.netlify.app" >Md. Ziaul Karim</a></div>
+            <div class="myFooter">© 2022 Copyright | Made by <a href="https://ziaulkarim.netlify.app" >Md. Ziaul Karim</a></div>
             """
 st.markdown(hide_streamlit_style, unsafe_allow_html=True) 
