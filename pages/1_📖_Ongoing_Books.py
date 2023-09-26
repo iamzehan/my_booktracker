@@ -10,14 +10,11 @@ def main(df,selected_option):
     if selected_option == "Show Data":
         st.subheader("Raw Data")
         if percent_chapter_or_page=='Percentagewise':
-            percentile=pd.DataFrame(columns=['title','completed'],data=calculate_percentile(running_books_df))
-            st.dataframe(percentile)
-        elif percent_chapter_or_page=='Chapterwise':
-            chapterwise=pd.DataFrame(columns=['title', 'current_chapter','total_chapters'],data=running_books_df)
-            st.dataframe(chapterwise)
+            st.dataframe(calculate_percentile(running_books_df)[['title','completed']])
+        elif percent_chapter_or_page=='Chapterwise':           
+            st.dataframe(running_books_df[['title', 'current_chapter','total_chapters']])
         elif percent_chapter_or_page=='Pagewise':
-            pagewise=pd.DataFrame(columns=['title','current_page','total_pages'],data=running_books_df)
-            st.dataframe(pagewise)
+            st.dataframe(running_books_df[['title','current_page','total_pages']])
     
     elif selected_option=="Show Chart":
         st.subheader("Charts")
@@ -27,15 +24,16 @@ def main(df,selected_option):
             st.spinner('Loading...')
             fig=plt.figure(figsize=(15,10))
             plt.title("Percentage of Progress",color='white',size=30)
-            sns.barplot(x='title', y='total',color='#262730',edgecolor="1",data=calculate_percentile(running_books_df))
-            sns.barplot(x='title', y='completed',color='#c42b2b',edgecolor="1",data=calculate_percentile(running_books_df))
+            percentage=calculate_percentile(running_books_df)
+            sns.barplot(x='title', y='total',color='#262730',edgecolor="1",data=percentage)
+            sns.barplot(x='title', y='completed',color='#c42b2b',edgecolor="1",data=percentage)
             plt.xlabel('Books',color='white',size=20)
             plt.ylabel('Pages',color='white',size=20)
             plt.tick_params(axis='both', colors='white',size=20)
     
         if percent_chapter_or_page=='Chapterwise':
             st.empty()
-            chapterwise=pd.DataFrame(columns=['title', 'current_chapter','total_chapters'],data=running_books_df)
+            chapterwise=running_books_df[['title', 'current_chapter','total_chapters']]
             fig=fig=plt.figure(figsize=(15,10))
             plt.title("Chapterwise Progress",color='white',size=30)
             sns.barplot(x='title', y='total_chapters',color='#262730',edgecolor="1",data=chapterwise)
@@ -46,7 +44,7 @@ def main(df,selected_option):
 
         if percent_chapter_or_page=='Pagewise':
             st.empty()
-            pagewise=pd.DataFrame(columns=['title','current_page','total_pages'],data=running_books_df)
+            pagewise=running_books_df[['title','current_page','total_pages']]
             fig=plt.figure(figsize=(15,10))
             plt.title("Pagewise Progress",color='white',size=30)
             sns.barplot(x='title', y='total_pages',color='#262730',edgecolor="1", dodge=False,data=pagewise)
@@ -96,6 +94,7 @@ if __name__ == '__main__':
     
     df=pd.read_csv('./data/books.csv')
     selected_option=st.radio("Select",["Show Chart","Show Data"],horizontal=True)
+    
     main(df,selected_option)
 
     import datetime
