@@ -98,5 +98,12 @@ if __name__ == '__main__':
     selected_option=st.radio("Select",["Show Chart","Show Data"],horizontal=True)
     main(df,selected_option)
 
-    hide_streamlit_style="""<div class="myFooter">© 2022 Copyright | Made by <a href="https://ziaulkarim.netlify.app" >Md. Ziaul Karim</a></div>"""
-    st.markdown(hide_streamlit_style, unsafe_allow_html=True)   
+    import datetime
+    # Get the current year
+    current_year = datetime.datetime.now().year
+
+    # Include the current year in the footer
+    footer = f'© {current_year} Copyright | Made by <a href="https://ziaulkarim.netlify.app" >Md. Ziaul Karim</a>'
+    hide_streamlit_style = f"""<div class="myFooter">{footer}</a> </div>
+                """
+    st.markdown(hide_streamlit_style, unsafe_allow_html=True) 
