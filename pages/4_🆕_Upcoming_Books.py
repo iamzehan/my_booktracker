@@ -40,10 +40,12 @@ if __name__ == '__main__':
 
     main(data)
                                                     #footer
-    hide_streamlit_style = """
-            <div class="myFooter">© 2022 Copyright | Made by <a href="https://ziaulkarim.netlify.app" >Md. Ziaul Karim</a></div>
-            """
+     import datetime
+    # Get the current year
+    current_year = datetime.datetime.now().year
+
+    # Include the current year in the footer
+    footer = f'© {current_year} Copyright | Made by <a href="https://ziaulkarim.netlify.app" >Md. Ziaul Karim</a>'
+    hide_streamlit_style = f"""<div class="myFooter">{footer}</a> </div>
+                """
     st.markdown(hide_streamlit_style, unsafe_allow_html=True) 
-    
-
-
