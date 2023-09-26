@@ -15,9 +15,9 @@ def main(df,df_exp,books_df):
     edited_chapter=st.number_input(label="Current Chapter",value=filtered_data['current_chapter'],max_value=max_chapters)
 
     subs=[] #subset of columns to be hightlighted
-
+    
     # This section is the change sensitiveness of the form fields
-    #  
+    
     if edited_page!=filtered_data['current_page'] and edited_chapter!=filtered_data['current_chapter']: 
         filtered_data['current_page'],filtered_data['current_chapter']=edited_page,edited_chapter 
         if status=='Ongoing':
@@ -35,12 +35,7 @@ def main(df,df_exp,books_df):
         filtered_data['current_chapter']=edited_chapter
         subs.append("current_chapter")
 
-    if len(subs)!=0:
-        st.write('Changing:')
-        count=1
-        for item in subs:
-            st.write(f'```{item}```')
-            count+=1
+    if len(subs)>0: st.write(f'Changing:\t```{(", ").join([item for item in subs])}```')
 
     # This section updates the DataFrame
     update=st.button('Update') # This is the update button that regulates the data to be saved on the disk
@@ -60,12 +55,13 @@ def main(df,df_exp,books_df):
                 df_exp.loc[[id],["current_chapter","current_page","status"]]=filtered_data["current_chapter"],filtered_data["current_page"],"Ongoing"
         
         if df_exp["current_chapter"][id] != df["current_chapter"][id] or df_exp["current_page"][id] != df["current_page"][id]:
-            st.subheader("Previous Data")
             prev=df.style.apply(lambda x: ['background-color:  #791400' if (i == id) else '' for i in x.index.values],subset=subs,axis=0)
+            upd=df_exp.style.apply(lambda x: ['background-color: #445F22' if (i == id) else '' for i in x.index.values],subset=subs,axis=0)
+            st.subheader("Previous Data")
             st.dataframe(prev)
             st.subheader("Updated Data")
-            upd=df_exp.style.apply(lambda x: ['background-color: #445F22' if (i == id) else '' for i in x.index.values],subset=subs,axis=0)
             st.dataframe(upd)
+            
             confirm=st.button("Confirm",on_click=save_data(df_exp))
 
         else:
@@ -113,7 +109,6 @@ if __name__ == '__main__':
     main(df,df_exp,books_df)
 
     #footer
-
     import datetime
     # Get the current year
     current_year = datetime.datetime.now().year
