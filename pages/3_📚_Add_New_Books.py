@@ -70,6 +70,12 @@ if __name__ == "__main__":
     df_exp=df.copy()
 
     main(df,df_exp)
-    hide_streamlit_style = """<div class="myFooter">© <a id="demo"></a> Copyright | Made by <a href="https://ziaulkarim.netlify.app" >Md. Ziaul Karim</a></a> </div>
+    import datetime
+    # Get the current year
+    current_year = datetime.datetime.now().year
+
+    # Include the current year in the footer
+    footer = f'© {current_year} Copyright | Made by <a href="https://ziaulkarim.netlify.app" >Md. Ziaul Karim</a>'
+    hide_streamlit_style = f"""<div class="myFooter">{footer}</a> </div>
                 """
     st.markdown(hide_streamlit_style, unsafe_allow_html=True) 
