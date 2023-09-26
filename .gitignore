@@ -1,5 +1,5 @@
 .streamlit/secrets.toml
-__pycache__
 run.sh
 virtualenvironment.sh
-data
+data/books.csv
+__pycache__

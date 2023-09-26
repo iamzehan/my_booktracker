@@ -1,17 +1,17 @@
 import streamlit as st
 import pandas as pd
 
-st.set_page_config(page_title="Upcoming",page_icon="🆕")
-df=pd.read_csv('./data/books.csv')
-st.header("Books that you're planning to read ahead.")
-data=df[df['status']=='Upcoming']
+def main(data):
+    st.header("Books that you plan to read")
+    st.dataframe(data)
 
-data=data.sort_values(by=['total_pages'],ascending=True)
-st.dataframe(data)
+if __name__ == '__main__':
+                                                    #config
+    st.set_page_config(page_title="Upcoming",page_icon="🆕")
+    st.sidebar.header("🆕 Upcoming books")
 
-st.sidebar.header("🆕 Upcoming books")
-
-hide_streamlit_style = """
+                                                    #styles
+    hide_streamlit_style = """
             <head>
             <style>
             #MainMenu{visibility: hidden;}
@@ -29,6 +29,21 @@ hide_streamlit_style = """
             </style>
             <title> Book Tracker </title>
             </head>
-            <div class="myFooter">© 2022 Copyright | Made by <a href="https://codingwithzk.netlify.app" >Md. Ziaul Karim</a></div>
             """
-st.markdown(hide_streamlit_style, unsafe_allow_html=True) 
+    st.markdown(hide_streamlit_style, unsafe_allow_html=True) 
+
+                                                    #main
+    df=pd.read_csv('./data/books.csv')
+    data=df[df['status']=='Upcoming']
+    data = pd.DataFrame({'Name':data['title'], 'Chapters':data['total_chapters'],'Pages':data['total_pages']})
+    data=data.sort_values(by=['Pages'],ascending=True)
+
+    main(data)
+                                                    #footer
+    hide_streamlit_style = """
+            <div class="myFooter">© 2022 Copyright | Made by <a href="https://ziaulkarim.netlify.app" >Md. Ziaul Karim</a></div>
+            """
+    st.markdown(hide_streamlit_style, unsafe_allow_html=True) 
+    
+
+

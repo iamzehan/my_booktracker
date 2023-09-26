@@ -1,22 +1,23 @@
 import streamlit as st
 import pandas as pd
 
-st.set_page_config(page_title="Finished",page_icon="🏁")
-df=pd.read_csv('./data/books.csv')
-st.header("🏁 Books that you've Finished")
-data=df[df['status']=='Finished']
-finished_books=data['title'].to_list()
-if len(finished_books)>0:
-    count=1
-    for book in finished_books:
-        st.write(count, book)
-        count+=1
-else:
-    st.image('./pages/nope.gif')
-    st.write('```None```')
-# st.dataframe(data)
+def main(data):
+    finished_books=data['title'].to_list()
+    if len(finished_books)>0:
+        count=1
+        for book in finished_books:
+            st.write(count, book)
+            count+=1
+    else:
+        st.image('./pages/nope.gif')
+        st.write('```None```')
+    # st.dataframe(data)
 
-hide_streamlit_style = """
+if __name__ == '__main__':
+
+    st.set_page_config(page_title="Finished",page_icon="🏁")
+    st.header("🏁 Books that you've Finished")
+    hide_streamlit_style = """
             <head>
             <style>
             #MainMenu{visibility: hidden;}
@@ -36,6 +37,14 @@ hide_streamlit_style = """
             </style>
             <title> Book Tracker </title>
             </head>
-            <div class="myFooter">© 2022 Copyright | Made by <a href="https://codingwithzk.netlify.app" >Md. Ziaul Karim</a></div>
             """
-st.markdown(hide_streamlit_style, unsafe_allow_html=True) 
+    st.markdown(hide_streamlit_style, unsafe_allow_html=True) 
+
+    df=pd.read_csv('./data/books.csv')
+    data=df[df['status']=='Finished']
+    main(data)
+
+    hide_streamlit_style = """
+                <div class="myFooter">© 2022 Copyright | Made by <a href="https://ziaulkarim.netlify.app" >Md. Ziaul Karim</a></div>
+                """
+    st.markdown(hide_streamlit_style, unsafe_allow_html=True) 
