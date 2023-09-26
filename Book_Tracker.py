@@ -92,7 +92,7 @@ if check_password():
                     </style>
                     <title> Book Tracker </title>
                     </head>
-                    <div class="myFooter">© <a>2022</a> Copyright | Made by <a href="https://ziaulkarim.netlify.app" >Md. Ziaul Karim</a> with <a href="https://streamlit.io/"> Streamlit </a> </div>
+                    <div class="myFooter">© Copyright | Made by <a href="https://ziaulkarim.netlify.app" >Md. Ziaul Karim</a> with <a href="https://streamlit.io/"> Streamlit </a> </div>
                     """
         return st.markdown(hide_streamlit_style, unsafe_allow_html=True) 
     if __name__=='__main__':
