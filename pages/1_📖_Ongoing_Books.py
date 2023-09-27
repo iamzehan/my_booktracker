@@ -98,7 +98,6 @@ if __name__ == '__main__':
         
     def addlabels(x,y,data):
         x,y = list(data[x]),list(data[y])
-        st.write(x,y)
         for i in range(len(x)):
             if type(y[i])==str:
                 k = int(float(y[i].replace("%","")))
