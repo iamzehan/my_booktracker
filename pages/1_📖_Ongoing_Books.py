@@ -33,7 +33,7 @@ def main(df,selected_option):
         if percent_chapter_or_page=='Chapterwise':
             st.empty()
             chapterwise=running_books_df[['title', 'current_chapter','total_chapters']]
-            y_vals=[i in range(0,max(chapterwise['total_chapters']),1)]
+            y_vals=[i in range(0,chapterwise['total_chapters'].max(),1)]
             sns.barplot(x='title', y='total_chapters',color='#262730',edgecolor="1",data=chapterwise)
             sns.barplot(x='title', y='current_chapter',color='#c42b2b',capsize=.3,edgecolor="1",data=chapterwise)
             plt.ylabel('Chapters',color='white',size=20)
