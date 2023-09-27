@@ -29,7 +29,7 @@ def main(df,selected_option):
             y_vals=[i for i in range(0,101,10)]
             sns.barplot(x='title', y='total',color='#262730',edgecolor="1",data=percentage)
             sns.barplot(x='title', y='completed',color='#c42b2b',edgecolor="1",data=percentage)
-            plt.ylabel('Pages',color='white',size=20)
+            plt.ylabel('Completed(%)',color='white',size=20)
             addlabels('title','completed',data=percentage,percentage=True)
             plt.yticks(y_vals)
     
