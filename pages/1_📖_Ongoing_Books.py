@@ -54,7 +54,7 @@ def main(df,selected_option):
             plt.yticks(y_vals)        
             
         plt.title(f"{percent_chapter_or_page} Progress",color='white',size=30)
-        plt.xlabel('Books',color='white',size=20)
+        plt.xlabel('Books',color='white',size=20,rotation=45)
         plt.tick_params(axis='both', colors='white',size=20)     
         st.pyplot(fig)    
      
