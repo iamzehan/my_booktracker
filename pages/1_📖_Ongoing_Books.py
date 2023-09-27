@@ -98,6 +98,7 @@ if __name__ == '__main__':
         
     def addlabels(x,y,data):
         x,y = list(data[x]),list(data[y])
+        st.write(x,y)
         for i in range(len(x)):
             plt.text(i, y[i]//2, y[i], ha = 'center',fontsize='medium', color='white')
         
