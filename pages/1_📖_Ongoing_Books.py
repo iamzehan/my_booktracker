@@ -91,7 +91,7 @@ if __name__ == '__main__':
         percentile_df = pd.DataFrame({
             'title': df['title'],
             'completed': (df['current_page'] / df['total_pages']).round(2) * 100,
-            'format_completed': df['completed'].apply(lambda x: f'{int(x)}%'),
+            'format_completed': df['completed'].apply(lambda x: f'{x:.2f}%'),
             'total': 100
         })
         return percentile_df
@@ -100,7 +100,7 @@ if __name__ == '__main__':
         x,y = list(data[x]),list(data[y])
         for i in range(len(x)):
             if type(y[i])==str:
-                k = int(y[i].replace("%",""))
+                k = int(float(y[i].replace("%","")))
             else:
                 k = y[i]
             plt.text(i, k//2, y[i], ha = 'center',fontsize='medium', color='white')
