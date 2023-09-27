@@ -39,6 +39,7 @@ def main(df,selected_option):
             sns.barplot(x='title', y='total_chapters',color='#262730',edgecolor="1",data=chapterwise)
             sns.barplot(x='title', y='current_chapter',color='#c42b2b',capsize=.3,edgecolor="1",data=chapterwise)
             plt.ylabel('Chapters',color='white',size=20)
+            addlabels(chapterwise['title'],chapterwise['current_chapter'])
             plt.yticks(y_vals)
 
         if percent_chapter_or_page=='Pagewise':
@@ -91,7 +92,11 @@ if __name__ == '__main__':
             'total': 100
         })
         return percentile_df
-    
+        
+    def addlabels(x,y):
+        for i in range(len(x)):
+            plt.text(i, y[i]//2, y[i], ha = 'center')
+        
     df=pd.read_csv('./data/books.csv')
     selected_option=st.radio("Select",["Show Chart","Show Data"],horizontal=True)
     
