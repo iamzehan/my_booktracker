@@ -100,6 +100,9 @@ if __name__ == '__main__':
         x,y = list(data[x]),list(data[y])
         st.write(x,y)
         for i in range(len(x)):
+            if type(y[i])==str:
+                k = int(float(y[i].replace("%","")))
+                plt.text(i, k//2, y[i], ha = 'center',fontsize='medium', color='white')
             plt.text(i, y[i]//2, y[i], ha = 'center',fontsize='medium', color='white')
         
     df=pd.read_csv('./data/books.csv')
