@@ -10,7 +10,7 @@ def main(df,selected_option):
     if selected_option == "Show Data":
         if percent_chapter_or_page=='Percentagewise':
             st.subheader(f"Raw Data: {percent_chapter_or_page}")
-            st.dataframe(calculate_percentile(running_books_df)[['title','completed']])
+            st.dataframe(calculate_percentile(running_books_df)[['title','format_completed']])
         elif percent_chapter_or_page=='Chapterwise':
             st.empty()
             st.subheader(f"Raw Data: {percent_chapter_or_page}")           
@@ -30,7 +30,6 @@ def main(df,selected_option):
             sns.barplot(x='title', y='total',color='#262730',edgecolor="1",data=percentage)
             sns.barplot(x='title', y='completed',color='#c42b2b',edgecolor="1",data=percentage)
             plt.ylabel('Pages',color='white',size=20)
-            percentage['format_completed'] = percentage['completed'].apply(lambda x: f'{x:.2f}%')
             addlabels('title','format_completed',data=percentage)
             plt.yticks(y_vals)
     
@@ -92,6 +91,7 @@ if __name__ == '__main__':
         percentile_df = pd.DataFrame({
             'title': df['title'],
             'completed': (df['current_page'] / df['total_pages']).round(2) * 100,
+            'format_completed': df['completed'].apply(lambda x: f'{x:.2f}%'),
             'total': 100
         })
         return percentile_df
