@@ -86,7 +86,7 @@ if __name__ == '__main__':
     st.markdown("Track books that are currently being read...")
     st.sidebar.header(" 📖 Ongoing Books")
     
-    @st.cache
+    @st.cache(allow_output_mutation=True)
     def calculate_percentile(df):
         percentile_df = pd.DataFrame({
             'title': df['title'],
