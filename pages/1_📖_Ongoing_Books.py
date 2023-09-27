@@ -101,9 +101,9 @@ if __name__ == '__main__':
         for i in range(len(x)):
             if type(y[i])==str:
                 k = int(float(y[i].replace("%","")))
-                plt.text(i, k//2, y[i], ha = 'center',fontsize='medium', color='white')
             else:
-                plt.text(i, y[i]//2, y[i], ha = 'center',fontsize='medium', color='white')
+                k = y[i]
+            plt.text(i, k//2, y[i], ha = 'center',fontsize='medium', color='white')
         
     df=pd.read_csv('./data/books.csv')
     selected_option=st.radio("Select",["Show Chart","Show Data"],horizontal=True)
