@@ -100,7 +100,7 @@ if __name__ == '__main__':
         for i in range(len(x)):
             if 'completed' in data.columns:
                 plt.text(i, round(y[i]//2), str(round(y[i])+"%", ha = 'center',fontsize='medium', color='white')
-            else:
+                         else:
                 plt.text(i, round(y[i]//2), round(y[i]), ha = 'center',fontsize='medium', color='white')
         
     df=pd.read_csv('./data/books.csv')
