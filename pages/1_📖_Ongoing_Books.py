@@ -30,7 +30,7 @@ def main(df,selected_option):
             sns.barplot(x='title', y='total',color='#262730',edgecolor="1",data=percentage)
             sns.barplot(x='title', y='completed',color='#c42b2b',edgecolor="1",data=percentage)
             plt.ylabel('Pages',color='white',size=20)
-            addlabels('title','format_completed',data=percentage)
+            addlabels('title','completed',data=percentage)
             plt.yticks(y_vals)
     
         if percent_chapter_or_page=='Chapterwise':
@@ -99,11 +99,7 @@ if __name__ == '__main__':
     def addlabels(x,y,data):
         x,y = list(data[x]),list(data[y])
         for i in range(len(x)):
-            if type(y[i])==str:
-                k = int(y[i].replace("%",""))
-            else:
-                k = y[i]
-            plt.text(i, k//2, y[i], ha = 'center',fontsize='medium', color='white')
+            plt.text(i, y[i]//2, y[i], ha = 'center',fontsize='medium', color='white')
         
     df=pd.read_csv('./data/books.csv')
     selected_option=st.radio("Select",["Show Chart","Show Data"],horizontal=True)
