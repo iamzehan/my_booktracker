@@ -96,7 +96,7 @@ if __name__ == '__main__':
     def addlabels(x,y,data):
         x,y = list(data[x]),list(data[y])
         for i in range(len(x)):
-            plt.text(i, y[i]//2, y[i], ha = 'center',font_size='medium', color='white')
+            plt.text(i, y[i]//2, y[i], ha = 'center',fontsize='medium', color='white')
         
     df=pd.read_csv('./data/books.csv')
     selected_option=st.radio("Select",["Show Chart","Show Data"],horizontal=True)
