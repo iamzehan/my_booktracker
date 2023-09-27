@@ -30,6 +30,8 @@ def main(df,selected_option):
             sns.barplot(x='title', y='total',color='#262730',edgecolor="1",data=percentage)
             sns.barplot(x='title', y='completed',color='#c42b2b',edgecolor="1",data=percentage)
             plt.ylabel('Pages',color='white',size=20)
+            percentage['format_completed'] = percentage['completed'].apply(lambda x: f'{x:.2f}%')
+            addlabels('title','format_completed',data=percentage)
             plt.yticks(y_vals)
     
         if percent_chapter_or_page=='Chapterwise':
@@ -49,6 +51,7 @@ def main(df,selected_option):
             sns.barplot(x='title', y='total_pages',color='#262730',edgecolor="1", dodge=False,data=pagewise)
             sns.barplot(x='title', y='current_page',color='#c42b2b',edgecolor="1",dodge=False, data=pagewise)
             plt.ylabel('Pages',color='white',size=20)
+            addlabels('title','current_page',data=pagewise)
             plt.yticks(y_vals)        
             
         plt.title(f"{percent_chapter_or_page} Progress",color='white',size=30)
