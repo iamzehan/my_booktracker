@@ -30,7 +30,7 @@ def main(df,selected_option):
             sns.barplot(x='title', y='total',color='#262730',edgecolor="1",data=percentage)
             sns.barplot(x='title', y='completed',color='#c42b2b',edgecolor="1",data=percentage)
             plt.ylabel('Pages',color='white',size=20)
-            addlabels('title','completed',data=percentage)
+            addlabels('title','completed',data=percentage,percentage=True)
             plt.yticks(y_vals)
     
         if percent_chapter_or_page=='Chapterwise':
@@ -95,10 +95,10 @@ if __name__ == '__main__':
         })
         return percentile_df
         
-    def addlabels(x,y,data):
+    def addlabels(x,y,data,percentage=False):
         x,y = list(data[x]),list(data[y])
         for i in range(len(x)):
-            if 'completed' in data.columns:
+            if percentage:
                 plt.text(i, round(y[i]//2), str(round(y[i]))+"%", ha = 'center',fontsize='medium', color='white')
             else:
                 plt.text(i, round(y[i]//2), round(y[i]), ha = 'center',fontsize='medium', color='white')
