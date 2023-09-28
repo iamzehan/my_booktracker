@@ -17,7 +17,7 @@ def addlabels(x,y,data,format=False):
     x,y = list(data[x]),list(data[y])
     for i in range(len(x)):
         if format:
-            plt.text(i, round(y[i]//2), str(round(y[i]))+"%", ha = 'center',fontsize='medium', color='white')
+            plt.text(i, round(y[i]//2), str(round(y[i]))+"%", ha = 'center',fontsize='large', color='white')
         else:
             plt.text(i, round(y[i]//2), round(y[i]), ha = 'center',fontsize='medium', color='white')
             
