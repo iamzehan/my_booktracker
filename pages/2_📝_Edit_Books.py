@@ -1,6 +1,12 @@
-import streamlit as st
+import datetime
 import pandas as pd
+import streamlit as st
 
+
+
+def save_data(data):
+    return data.to_csv('./data/books.csv',index=False)
+    
 def main(df,df_exp,books_df):
     
     selected_book=st.selectbox('Which Books you want to update?',list(books_df['title']))
@@ -102,19 +108,10 @@ if __name__ == '__main__':
     df_exp=df.copy()
     status=st.radio('Choose:',['Ongoing','Upcoming'],horizontal=True)
     books_df=df[df['status']==status]
-
-    def save_data(data):
-        return data.to_csv('./data/books.csv',index=False)
     
     main(df,df_exp,books_df)
 
-    #footer
-    import datetime
-    # Get the current year
     current_year = datetime.datetime.now().year
-
-    # Include the current year in the footer
     footer = f'© {current_year} Copyright | Made by <a href="https://ziaulkarim.netlify.app" >Md. Ziaul Karim</a>'
-    hide_streamlit_style = f"""<div class="myFooter">{footer}</a> </div>
-                """
+    hide_streamlit_style = f"""<div class="myFooter">{footer}</a> </div>"""
     st.markdown(hide_streamlit_style, unsafe_allow_html=True) 
