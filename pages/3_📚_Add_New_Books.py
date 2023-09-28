@@ -1,6 +1,13 @@
-import streamlit as st
+import datetime
 import pandas as pd
+import streamlit as st
 
+def save_data(data):
+    return data.to_csv('./data/books.csv',index=False)
+    
+def cancel_data(data,id):
+    data=data.drop(axis=0,index=id)
+    
 def main(df,df_exp): 
     id=len(df_exp)
     add_current_page=0
@@ -61,21 +68,14 @@ if __name__ == "__main__":
     st.sidebar.header("📚 Add a new Book")
     st.markdown("Add a new book that you are planning to read")
 
-    def save_data(data):
-        return data.to_csv('./data/books.csv',index=False)
-    def cancel_data(data,id):
-        data=data.drop(axis=0,index=id)
+
 
     df=pd.read_csv('./data/books.csv')
     df_exp=df.copy()
 
     main(df,df_exp)
-    import datetime
-    # Get the current year
-    current_year = datetime.datetime.now().year
 
-    # Include the current year in the footer
+    current_year = datetime.datetime.now().year
     footer = f'© {current_year} Copyright | Made by <a href="https://ziaulkarim.netlify.app" >Md. Ziaul Karim</a>'
-    hide_streamlit_style = f"""<div class="myFooter">{footer}</a> </div>
-                """
+    hide_streamlit_style = f"""<div class="myFooter">{footer}</a> </div>"""
     st.markdown(hide_streamlit_style, unsafe_allow_html=True) 
