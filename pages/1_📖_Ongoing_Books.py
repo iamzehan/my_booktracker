@@ -1,8 +1,26 @@
-import streamlit as st
+import datetime
 import pandas as pd
-import matplotlib.pyplot as plt
 import seaborn as sns
+import streamlit as st
+import matplotlib.pyplot as plt
 
+@st.cache(allow_output_mutation=True)
+def calculate_percentile(df):
+    percentile_df = pd.DataFrame({
+        'title': df['title'],
+        'completed': (df['current_page'] / df['total_pages']).round(2) * 100,
+        'total': 100
+    })
+    return percentile_df
+        
+def addlabels(x,y,data,format=False):
+    x,y = list(data[x]),list(data[y])
+    for i in range(len(x)):
+        if format:
+            plt.text(i, round(y[i]//2), str(round(y[i]))+"%", ha = 'center',fontsize='medium', color='white')
+        else:
+            plt.text(i, round(y[i]//2), round(y[i]), ha = 'center',fontsize='medium', color='white')
+            
 def main(df,selected_option):
     running_books_df=df[df['status']=='Ongoing']
     percent_chapter_or_page= st.selectbox('How Do you want to track your progress?',["Percentagewise",'Chapterwise','Pagewise'])
@@ -82,35 +100,15 @@ if __name__ == '__main__':
                 </head>
                 """
     st.markdown(hide_streamlit_style, unsafe_allow_html=True)
-    
     st.header("📖 Ongoing Books")
     st.markdown("Track books that are currently being read...")
     st.sidebar.header(" 📖 Ongoing Books")
-    
-    @st.cache(allow_output_mutation=True)
-    def calculate_percentile(df):
-        percentile_df = pd.DataFrame({
-            'title': df['title'],
-            'completed': (df['current_page'] / df['total_pages']).round(2) * 100,
-            'total': 100
-        })
-        return percentile_df
-        
-    def addlabels(x,y,data,format=False):
-        x,y = list(data[x]),list(data[y])
-        for i in range(len(x)):
-            if format:
-                plt.text(i, round(y[i]//2), str(round(y[i]))+"%", ha = 'center',fontsize='medium', color='white')
-            else:
-                plt.text(i, round(y[i]//2), round(y[i]), ha = 'center',fontsize='medium', color='white')
         
     df=pd.read_csv('./data/books.csv')
     selected_option=st.radio("Select",["Show Chart","Show Data"],horizontal=True)
     
     main(df,selected_option)
 
-    import datetime
-    # Get the current year
     current_year = datetime.datetime.now().year
 
     # Include the current year in the footer
