@@ -1,6 +1,7 @@
 import streamlit as st
 import pandas as pd
 
+                                                            #main function
 def main(data):
     finished_books=data['title'].to_list()
     if len(finished_books)>0:
@@ -14,7 +15,7 @@ def main(data):
     # st.dataframe(data)
 
 if __name__ == '__main__':
-
+                                                            #config
     st.set_page_config(page_title="Finished",page_icon="🏁")
     st.header("🏁 Books that you've Finished")
     hide_streamlit_style = """
@@ -39,17 +40,12 @@ if __name__ == '__main__':
             </head>
             """
     st.markdown(hide_streamlit_style, unsafe_allow_html=True) 
-
+                                                            #main
     df=pd.read_csv('./data/books.csv')
     data=df[df['status']=='Finished']
     main(data)
-
-    import datetime
-    # Get the current year
+                                                            #footer
     current_year = datetime.datetime.now().year
-
-    # Include the current year in the footer
     footer = f'© {current_year} Copyright | Made by <a href="https://ziaulkarim.netlify.app" >Md. Ziaul Karim</a>'
-    hide_streamlit_style = f"""<div class="myFooter">{footer}</a> </div>
-                """
+    hide_streamlit_style = f"""<div class="myFooter">{footer}</a> </div>"""
     st.markdown(hide_streamlit_style, unsafe_allow_html=True) 
