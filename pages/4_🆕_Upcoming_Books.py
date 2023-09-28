@@ -1,5 +1,6 @@
-import streamlit as st
+import datetime
 import pandas as pd
+import streamlit as st
 
 def main(data):
     st.header("Books that you plan to read")
@@ -40,12 +41,7 @@ if __name__ == '__main__':
 
     main(data)
                                                     #footer
-    import datetime
-    # Get the current year
     current_year = datetime.datetime.now().year
-
-    # Include the current year in the footer
     footer = f'© {current_year} Copyright | Made by <a href="https://ziaulkarim.netlify.app" >Md. Ziaul Karim</a>'
-    hide_streamlit_style = f"""<div class="myFooter">{footer}</a> </div>
-                """
+    hide_streamlit_style = f"""<div class="myFooter">{footer}</a> </div>"""
     st.markdown(hide_streamlit_style, unsafe_allow_html=True) 
