@@ -32,7 +32,7 @@ def main(df,df_exp,books_df):
         filtered_data['current_page']=edited_page
         if edited_page<max_pages:
             subs.append("current_page")
-        elif edited_page==max_pages:
+        elif edited_page>=max_pages:
             subs.extend(["current_page","status"])
             
     elif edited_page==filtered_data['current_page'] and edited_chapter!=filtered_data['current_chapter']:
