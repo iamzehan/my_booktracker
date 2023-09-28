@@ -2,13 +2,10 @@ import datetime
 import pandas as pd
 import streamlit as st
 
-
-
 def save_data(data):
     return data.to_csv('./data/books.csv',index=False)
     
 def main(df,df_exp,books_df):
-    
     selected_book=st.selectbox('Which Books you want to update?',list(books_df['title']))
     st.markdown(f'Edit: $\\text{ {selected_book} }$')
     data=books_df.loc[books_df['title']==selected_book]
@@ -20,10 +17,9 @@ def main(df,df_exp,books_df):
     edited_page=st.number_input(label="Current Page",value=filtered_data['current_page'],max_value=max_pages)
     edited_chapter=st.number_input(label="Current Chapter",value=filtered_data['current_chapter'],max_value=max_chapters)
 
-    subs=[] #subset of columns to be hightlighted
+    subs=[] #subset of columns to be changed and to be hightlighted
     
     # This section is the change sensitiveness of the form fields
-    
     if edited_page!=filtered_data['current_page'] and edited_chapter!=filtered_data['current_chapter']: 
         filtered_data['current_page'],filtered_data['current_chapter']=edited_page,edited_chapter 
         if status=='Ongoing':
@@ -31,21 +27,22 @@ def main(df,df_exp,books_df):
                 subs.extend(["current_page","current_chapter"])
         elif status=='Upcoming':
             subs.extend(["current_page","current_chapter","status"])
+            
     elif edited_page!=filtered_data['current_page'] and edited_chapter==filtered_data['current_chapter']:
         filtered_data['current_page']=edited_page
         if edited_page<max_pages:
             subs.append("current_page")
         elif edited_page==max_pages:
             subs.extend(["current_page","status"])
+            
     elif edited_page==filtered_data['current_page'] and edited_chapter!=filtered_data['current_chapter']:
         filtered_data['current_chapter']=edited_chapter
         subs.append("current_chapter")
 
     if len(subs)>0: st.write(f'Changing:\t```{(", ").join([item for item in subs])}```')
-
+        
     # This section updates the DataFrame
     update=st.button('Update') # This is the update button that regulates the data to be saved on the disk
-
     if update: # if "Update" is pressed
         id=int(filtered_data["id"]) # for disambiguity of the data, we have chosen the index value from the data that is filtered into the dictionary - "filtered_data={}"
         if len(subs)==1: #either current_page or current_chapter edited
@@ -67,12 +64,9 @@ def main(df,df_exp,books_df):
             st.dataframe(prev)
             st.subheader("Updated Data")
             st.dataframe(upd)
-            
             confirm=st.button("Confirm",on_click=save_data(df_exp))
-
         else:
             st.write("`No Changes Detected`")
-
 
 if __name__ == '__main__':
 
