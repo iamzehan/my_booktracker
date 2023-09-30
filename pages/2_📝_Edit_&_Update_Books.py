@@ -45,7 +45,7 @@ def main(df,df_exp,books_df):
     # This section updates the DataFrame
     # update=st.button('Check Changes') # This is the update button that regulates the data to be saved on the disk
     exp = st.empty()
-    with exp.expander(f'{"Changing: ```"+(", ").join([item for item in subs])+"```" if subs!=[] else "```No Changes yet```"}',expanded=(subs != [])):: # if "Update" is pressed
+    with exp.expander(f'{"Changing: ```"+(", ").join([item for item in subs])+"```" if subs!=[] else "```No Changes yet```"}',expanded=(subs != [])): # if "Update" is pressed
         id=int(filtered_data["id"]) # for disambiguity of the data, we have chosen the index value from the data that is filtered into the dictionary - "filtered_data={}"
         if len(subs)==1: #either current_page or current_chapter edited
             df_exp.loc[[id],subs[0]]=filtered_data[subs[0]]
