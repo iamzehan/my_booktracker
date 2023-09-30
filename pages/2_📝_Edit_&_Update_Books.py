@@ -104,8 +104,5 @@ if __name__ == '__main__':
     books_df=df[df['status']==status]
     
     main(df,df_exp,books_df)
-
-    current_year = datetime.datetime.now().year
-    footer = f'© {current_year} Copyright | Made by <a href="https://ziaulkarim.netlify.app" >Md. Ziaul Karim</a>'
-    hide_streamlit_style = f"""<div class="myFooter">{footer}</a> </div>"""
+    hide_streamlit_style = f"""<div class="myFooter">© { datetime.datetime.now().year} Copyright | Made by <a href="https://ziaulkarim.netlify.app" >Md. Ziaul Karim</a></a> </div>"""
     st.markdown(hide_streamlit_style, unsafe_allow_html=True) 
