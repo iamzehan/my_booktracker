@@ -76,7 +76,7 @@ def main(df,df_exp,books_df):
             save_data(df_exp)
             del subs[:]
     with col2:
-        if st.button("Cancel"):
+        if st.button("Cancel",type='primary'):
             save_data(df)
             del subs[:]
 
