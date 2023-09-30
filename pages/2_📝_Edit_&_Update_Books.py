@@ -7,7 +7,7 @@ def save_data(data):
     
 def main(df,df_exp,books_df):
     selected_book=st.selectbox('Which Books you want to update?',list(books_df['title']))
-    st.markdown(f'Edit: $\\text{ {selected_book} }$')
+    st.markdown(f'`Edit:` $\\text{ {selected_book} }$')
     data=books_df.loc[books_df['title']==selected_book]
     st.dataframe(data, width=40000)
     idx=data.index.values[0]
@@ -64,7 +64,11 @@ def main(df,df_exp,books_df):
             st.dataframe(prev)
             st.subheader("Updated Data")
             st.dataframe(upd)
-            confirm=st.button("Confirm",on_click=save_data(df_exp))
+            confirm=st.button("Confirm",on_click=True)
+            cancel = st.button("Cancel", on_click = main())
+            if confirm:
+                return save_data(df_exp)
+                
         else:
             st.write("`No Changes Detected`")
 
