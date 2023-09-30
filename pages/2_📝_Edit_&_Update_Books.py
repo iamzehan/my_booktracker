@@ -68,11 +68,9 @@ def main(df,df_exp,books_df):
             if st.button("Confirm"):
                 save_data(df_exp)
                 subs=[]
-                exp.empty()
             elif st.button("Cancel"):
                 save_data(df)
                 subs=[]
-                exp.empty()
         else:
             st.write("`No Changes Detected`")
 
