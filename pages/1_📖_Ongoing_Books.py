@@ -47,7 +47,7 @@ def main(df,selected_option):
         if percent_chapter_or_page=='Percentagewise':
             data = calculate_percentile(running_books_df)
             y_vals=[i for i in range(0,101,10)]
-            sns.barplot(x='title', y='total',color='#262730',edgecolor="1",data=data)
+            sns.barplot(x='title', y=[100 for i in data['title']],color='#262730',edgecolor="1",data=data)
             sns.barplot(x='title', y='completed',color='#c42b2b',edgecolor="1",data=data)
             plt.ylabel('Completed(%)',color='white',size=20)
             addlabels('title','completed',data=data,format=True)
