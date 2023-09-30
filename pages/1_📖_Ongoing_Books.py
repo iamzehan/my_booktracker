@@ -105,7 +105,8 @@ if __name__ == '__main__':
     st.markdown("Track books that are currently being read...")
     st.sidebar.header(" 📖 Ongoing Books")
         
-    df=pd.read_csv('./data/books.csv',query='status == "Ongoing"')
+    df=pd.read_csv('./data/books.csv')
+    df = df[df['status']=='Ongoing']
     selected_option=st.radio("Select",["Show Chart","Show Data"],horizontal=True)
     
     main(df,selected_option)
