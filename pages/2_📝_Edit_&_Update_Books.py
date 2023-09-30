@@ -44,7 +44,7 @@ def main(df,df_exp,books_df):
     # This section updates the DataFrame
     update=st.button('Check Changes') # This is the update button that regulates the data to be saved on the disk
     confirm=st.button("Confirm",on_click=save_data(df_exp))
-    Undo = st.button("""<i class="fa-solid fa-xmark" style="color: #ffffff;"></i>""", type='primary',on_click=save_data(df))
+    Undo = st.button("""Cancel""", type='primary',on_click=save_data(df))
     if update: # if "Update" is pressed
         id=int(filtered_data["id"]) # for disambiguity of the data, we have chosen the index value from the data that is filtered into the dictionary - "filtered_data={}"
         if len(subs)==1: #either current_page or current_chapter edited
