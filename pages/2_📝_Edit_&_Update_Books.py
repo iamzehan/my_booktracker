@@ -70,12 +70,14 @@ def main(df,df_exp,books_df):
             st.dataframe(upd)
         else:
             st.write("`No Changes Detected`")
-    if st.button("Confirm"):
-        save_data(df_exp)
-        del subs[:]
-    if st.button("Cancel"):
-        save_data(df)
-        del subs[:]
+    with st.columns(1):        
+        if st.button("Confirm"):
+            save_data(df_exp)
+            del subs[:]
+    with st.columns(2):
+        if st.button("Cancel"):
+            save_data(df)
+            del subs[:]
 
 if __name__ == '__main__':
 
