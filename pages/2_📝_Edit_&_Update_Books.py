@@ -70,7 +70,7 @@ def main(df,df_exp,books_df):
     if st.button("Confirm"):
         save_data(df_exp)
         del subs[:]
-    elif st.button("Cancel"):
+    if st.button("Cancel"):
         save_data(df)
         del subs[:]
 
