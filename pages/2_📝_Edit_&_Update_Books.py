@@ -49,9 +49,9 @@ def main(df,df_exp,books_df):
         if len(subs)==1: #either current_page or current_chapter edited
             df_exp.loc[[id],subs[0]]=filtered_data[subs[0]]
         elif len(subs)==2: # both current_page and current_chapter edited
-            if subs==["current_chapter","current_page"] or subs==["current_page","current_chapter"]:
+            if set(subs) == {"current_chapter", "current_page"}:
                 df_exp.loc[[id],["current_chapter","current_page"]]= filtered_data["current_chapter"],filtered_data["current_page"] 
-            elif subs==["current_page","status"] or subs==["status","current_page"]:
+            elif set(subs)=={"current_page","status"}:
                 st.write('```Finished```')
                 df_exp.loc[[id],["current_chapter","current_page","status"]]=filtered_data["current_chapter"],filtered_data["current_page"],"Finished"
         elif len(subs)==3: # this only occurs when a book from the Upcoming section changes it's current_page, current_chapter and so the status gets changed as well.
