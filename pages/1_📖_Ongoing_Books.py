@@ -42,7 +42,7 @@ def main(running_books_df,selected_option):
     elif selected_option=="Show Chart":
         st.subheader("Charts")
         sns.set(rc={'axes.facecolor':'#0e1117','figure.facecolor':'#0e1117'})
-        fig=plt.figure(figsize=(15,10))
+        fig=st.figure(figsize=(15,10))
         if percent_chapter_or_page=='Percentagewise':
             data = calculate_percentile(running_books_df)
             y_vals=[i for i in range(0,101,10)]
@@ -53,7 +53,7 @@ def main(running_books_df,selected_option):
             plt.yticks(y_vals)
     
         if percent_chapter_or_page=='Chapterwise':
-            st.empty()
+            st.empty(fig)
             data=running_books_df[['title', 'current_chapter','total_chapters']]
             y_vals=[i for i in range(1,data.total_chapters.max()+1,1)]
             sns.barplot(x='title', y='total_chapters',color='#262730',edgecolor="1",data=data)
@@ -114,7 +114,6 @@ if __name__ == '__main__':
         st.error('We have encountered some error!')
         
     # Include the current year in the footer
-    footer = f'© {datetime.datetime.now().year} Copyright | Made by <a href="https://ziaulkarim.netlify.app" >Md. Ziaul Karim</a>'
     hide_streamlit_style = f"""<div class="myFooter">© {datetime.datetime.now().year} Copyright | Made by <a href="https://ziaulkarim.netlify.app" >Md. Ziaul Karim</a></a> </div>
                 """
     st.markdown(hide_streamlit_style, unsafe_allow_html=True) 
