@@ -42,7 +42,7 @@ def main(running_books_df,selected_option):
     elif selected_option=="Show Chart":
         st.subheader("Charts")
         sns.set(rc={'axes.facecolor':'#0e1117','figure.facecolor':'#0e1117'})
-        fig=st.figure(figsize=(15,10))
+        fig=plt.figure(figsize=(15,10))
         if percent_chapter_or_page=='Percentagewise':
             data = calculate_percentile(running_books_df)
             y_vals=[i for i in range(0,101,10)]
