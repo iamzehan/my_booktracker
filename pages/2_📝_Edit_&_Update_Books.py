@@ -64,13 +64,8 @@ def main(df,df_exp,books_df):
             st.dataframe(prev)
             st.subheader("Updated Data")
             st.dataframe(upd)
-            confirm=st.button("Confirm")
-            cancel = st.button("Cancel", type='primary')
-            if confirm:
-                save_data(df_exp)
-            if cancel:
-                save_data(df)
-                
+            confirm=st.button("Confirm",onclick=save_data(df_exp)
+            cancel = st.button("Cancel", type='primary',onclick=save_data(df))
         else:
             st.write("`No Changes Detected`")
 
