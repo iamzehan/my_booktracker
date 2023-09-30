@@ -67,9 +67,9 @@ def main(df,df_exp,books_df):
             confirm=st.button("Confirm")
             cancel = st.button("Cancel", type='primary')
             if confirm:
-                return save_data(df_exp)
+                save_data(df_exp)
             if cancel:
-                return save_data(df)
+                save_data(df)
                 
         else:
             st.write("`No Changes Detected`")
