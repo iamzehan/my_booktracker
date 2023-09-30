@@ -20,8 +20,7 @@ def addlabels(x,y,data,format=False):
         else:
             plt.text(i, round(y[i]//2), round(y[i]), ha = 'center',fontsize='medium', color='white')
             
-def main(df,selected_option):
-    running_books_df=df[df['status']=='Ongoing']
+def main(running_books_df,selected_option):
     percent_chapter_or_page= st.selectbox('How Do you want to track your progress?',["Percentagewise",'Chapterwise','Pagewise'])
     data = None
     if selected_option == "Show Data":
@@ -106,15 +105,13 @@ if __name__ == '__main__':
     st.markdown("Track books that are currently being read...")
     st.sidebar.header(" 📖 Ongoing Books")
         
-    df=pd.read_csv('./data/books.csv')
+    df=pd.read_csv('./data/books.csv',query='status == "Ongoing"')
     selected_option=st.radio("Select",["Show Chart","Show Data"],horizontal=True)
     
     main(df,selected_option)
 
-    current_year = datetime.datetime.now().year
-
     # Include the current year in the footer
-    footer = f'© {current_year} Copyright | Made by <a href="https://ziaulkarim.netlify.app" >Md. Ziaul Karim</a>'
+    footer = f'© {datetime.datetime.now().year} Copyright | Made by <a href="https://ziaulkarim.netlify.app" >Md. Ziaul Karim</a>'
     hide_streamlit_style = f"""<div class="myFooter">{footer}</a> </div>
                 """
     st.markdown(hide_streamlit_style, unsafe_allow_html=True) 
