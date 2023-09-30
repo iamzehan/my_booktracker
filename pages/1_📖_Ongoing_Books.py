@@ -23,7 +23,7 @@ def addlabels(x,y,data,format=False):
 def main(df,selected_option):
     running_books_df=df[df['status']=='Ongoing']
     percent_chapter_or_page= st.selectbox('How Do you want to track your progress?',["Percentagewise",'Chapterwise','Pagewise'])
-    data = running_books_df
+    data = None
     if selected_option == "Show Data":
         if percent_chapter_or_page=='Percentagewise':
             data = calculate_percentile(running_books_df)
