@@ -67,10 +67,10 @@ def main(df,df_exp,books_df):
             st.dataframe(upd)
             if st.button("Confirm"):
                 save_data(df_exp)
-                expander.expended=False
+                subs=[]
             elif st.button("Cancel"):
                 save_data(df)
-                expander.expended=False
+                subs=[]
         else:
             st.write("`No Changes Detected`")
 
