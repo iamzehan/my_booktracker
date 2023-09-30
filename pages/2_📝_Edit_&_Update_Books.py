@@ -9,7 +9,7 @@ def main(df,df_exp,books_df):
     selected_book=st.selectbox('Which Books you want to update?',list(books_df['title']))
     st.markdown(f'`Edit:` $\\text{ {selected_book} }$')
     data=books_df.loc[books_df['title']==selected_book]
-    st.dataframe(data, hide_index=True)
+    st.dataframe(data)
     idx=data.index.values[0]
     max_pages=data['total_pages'][idx]
     max_chapters=data['total_chapters'][idx]
