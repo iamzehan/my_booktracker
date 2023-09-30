@@ -70,7 +70,7 @@ def main(df,df_exp,books_df):
             st.dataframe(upd)
         else:
             st.write("`No Changes Detected`")
-    col1,col2= st.columns(2)
+    col1,col2= st.columns([1,1])
     with col1:        
         if st.button("Confirm"):
             save_data(df_exp)
