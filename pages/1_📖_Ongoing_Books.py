@@ -107,10 +107,10 @@ if __name__ == '__main__':
         
     df=pd.read_csv('./data/books.csv')
     df = df[df['status']=='Ongoing']
-    selected_option=st.radio("Select",["Show Chart","Show Data"],horizontal=True)
-    
-    main(df,selected_option)
-
+    try:
+        main(df,st.radio("Select",["Show Chart","Show Data"],horizontal=True))
+    except:
+        st.error('We have encountered some error!')
     # Include the current year in the footer
     footer = f'© {datetime.datetime.now().year} Copyright | Made by <a href="https://ziaulkarim.netlify.app" >Md. Ziaul Karim</a>'
     hide_streamlit_style = f"""<div class="myFooter">{footer}</a> </div>
