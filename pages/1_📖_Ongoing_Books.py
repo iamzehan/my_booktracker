@@ -8,7 +8,7 @@ import matplotlib.pyplot as plt
 def calculate_percentile(df):
     percentile_df = pd.DataFrame({
         'title': df['title'],
-        'completed': (df['current_page'] / df['total_pages']).round(2) * 100
+        'completed': (df['current_page'] / df['total_pages']).round(0).astype(int).astype(str) + '%'
     })
     return percentile_df
         
