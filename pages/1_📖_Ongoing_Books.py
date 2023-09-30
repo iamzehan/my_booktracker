@@ -53,7 +53,7 @@ def main(running_books_df,selected_option):
             plt.yticks(y_vals)
     
         if percent_chapter_or_page=='Chapterwise':
-            st.empty(fig)
+            st.empty()
             data=running_books_df[['title', 'current_chapter','total_chapters']]
             y_vals=[i for i in range(1,data.total_chapters.max()+1,1)]
             sns.barplot(x='title', y='total_chapters',color='#262730',edgecolor="1",data=data)
