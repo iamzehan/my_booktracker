@@ -14,7 +14,7 @@ def main(df,df_exp,books_df):
     max_pages=data['total_pages'][idx]
     max_chapters=data['total_chapters'][idx]
     filtered_data={'id':idx,'current_page':data['current_page'][idx],'current_chapter':data['current_chapter'][idx]}
-    col1, col2=columns(2)
+    col1, col2=st.columns(2)
     with col1:
         edited_page=st.number_input(label="Current Page",value=filtered_data['current_page'],max_value=max_pages)
     with col2:
