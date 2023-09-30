@@ -8,8 +8,7 @@ import matplotlib.pyplot as plt
 def calculate_percentile(df):
     percentile_df = pd.DataFrame({
         'title': df['title'],
-        'completed': (df['current_page'] / df['total_pages']).round(2) * 100,
-        'total': 100
+        'completed': (df['current_page'] / df['total_pages']).round(2) * 100
     })
     return percentile_df
         
@@ -24,51 +23,54 @@ def addlabels(x,y,data,format=False):
 def main(df,selected_option):
     running_books_df=df[df['status']=='Ongoing']
     percent_chapter_or_page= st.selectbox('How Do you want to track your progress?',["Percentagewise",'Chapterwise','Pagewise'])
-    
+    data = running_books_df
     if selected_option == "Show Data":
         if percent_chapter_or_page=='Percentagewise':
+            data = calculate_percentile(running_books_df)
             st.subheader(f"Raw Data: {percent_chapter_or_page}")
-            st.dataframe(calculate_percentile(running_books_df)[['title','completed']])
+            st.dataframe(data)
         elif percent_chapter_or_page=='Chapterwise':
             st.empty()
+            data = running_books_df[['title', 'current_chapter','total_chapters']]
             st.subheader(f"Raw Data: {percent_chapter_or_page}")           
-            st.dataframe(running_books_df[['title', 'current_chapter','total_chapters']])
+            st.dataframe(data)
         elif percent_chapter_or_page=='Pagewise':
             st.empty()
+            data = running_books_df[['title','current_page','total_pages']]
             st.subheader(f"Raw Data: {percent_chapter_or_page}")
-            st.dataframe(running_books_df[['title','current_page','total_pages']])
+            st.dataframe(data)
     
     elif selected_option=="Show Chart":
         st.subheader("Charts")
         sns.set(rc={'axes.facecolor':'#0e1117','figure.facecolor':'#0e1117'})
         fig=plt.figure(figsize=(15,10))
         if percent_chapter_or_page=='Percentagewise':
-            percentage=calculate_percentile(running_books_df)
+            data = calculate_percentile(running_books_df)
             y_vals=[i for i in range(0,101,10)]
-            sns.barplot(x='title', y='total',color='#262730',edgecolor="1",data=percentage)
-            sns.barplot(x='title', y='completed',color='#c42b2b',edgecolor="1",data=percentage)
+            sns.barplot(x='title', y='total',color='#262730',edgecolor="1",data=data)
+            sns.barplot(x='title', y='completed',color='#c42b2b',edgecolor="1",data=data)
             plt.ylabel('Completed(%)',color='white',size=20)
-            addlabels('title','completed',data=percentage,format=True)
+            addlabels('title','completed',data=data,format=True)
             plt.yticks(y_vals)
     
         if percent_chapter_or_page=='Chapterwise':
             st.empty()
-            chapterwise=running_books_df[['title', 'current_chapter','total_chapters']]
+            data=running_books_df[['title', 'current_chapter','total_chapters']]
             y_vals=[i for i in range(1,chapterwise.total_chapters.max()+1,1)]
-            sns.barplot(x='title', y='total_chapters',color='#262730',edgecolor="1",data=chapterwise)
-            sns.barplot(x='title', y='current_chapter',color='#c42b2b',capsize=.3,edgecolor="1",data=chapterwise)
+            sns.barplot(x='title', y='total_chapters',color='#262730',edgecolor="1",data=data)
+            sns.barplot(x='title', y='current_chapter',color='#c42b2b',capsize=.3,edgecolor="1",data=data)
             plt.ylabel('Chapters',color='white',size=20)
-            addlabels('title','current_chapter',data=chapterwise)
+            addlabels('title','current_chapter',data=data)
             plt.yticks(y_vals)
 
         if percent_chapter_or_page=='Pagewise':
             st.empty()
-            pagewise=running_books_df[['title','current_page','total_pages']]
+            data=running_books_df[['title','current_page','total_pages']]
             y_vals=[i for i in range(0,pagewise.total_pages.max()+50,50)]
-            sns.barplot(x='title', y='total_pages',color='#262730',edgecolor="1", dodge=False,data=pagewise)
-            sns.barplot(x='title', y='current_page',color='#c42b2b',edgecolor="1",dodge=False, data=pagewise)
+            sns.barplot(x='title', y='total_pages',color='#262730',edgecolor="1", dodge=False,data=data)
+            sns.barplot(x='title', y='current_page',color='#c42b2b',edgecolor="1",dodge=False, data=data)
             plt.ylabel('Pages',color='white',size=20)
-            addlabels('title','current_page',data=pagewise)
+            addlabels('title','current_page',data=data)
             plt.yticks(y_vals)        
             
         plt.title(f"{percent_chapter_or_page} Progress",color='white',size=30)
