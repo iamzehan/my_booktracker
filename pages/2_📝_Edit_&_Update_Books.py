@@ -42,7 +42,9 @@ def main(df,df_exp,books_df):
     if len(subs)>0: st.write(f'Changing:\t```{(", ").join([item for item in subs])}```')
         
     # This section updates the DataFrame
-    update=st.button('Update') # This is the update button that regulates the data to be saved on the disk
+    update=st.button('Check Changes') # This is the update button that regulates the data to be saved on the disk
+    confirm=st.button("Confirm",onclick=save_data(df_exp))
+    Undo = st.button("""<i class="fa-solid fa-xmark" style="color: #ffffff;"></i>""", type='primary',onclick=save_data(df))
     if update: # if "Update" is pressed
         id=int(filtered_data["id"]) # for disambiguity of the data, we have chosen the index value from the data that is filtered into the dictionary - "filtered_data={}"
         if len(subs)==1: #either current_page or current_chapter edited
@@ -64,8 +66,6 @@ def main(df,df_exp,books_df):
             st.dataframe(prev)
             st.subheader("Updated Data")
             st.dataframe(upd)
-            confirm=st.button("Confirm",onclick=save_data(df_exp))
-            cancel = st.button("Cancel", type='primary',onclick=save_data(df))
         else:
             st.write("`No Changes Detected`")
 
