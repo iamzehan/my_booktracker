@@ -61,10 +61,10 @@ def main(df,df_exp,books_df):
         if df_exp["current_chapter"][id] != df["current_chapter"][id] or df_exp["current_page"][id] != df["current_page"][id]:
             prev=df.style.apply(lambda x: ['background-color:  #791400' if (i == id) else '' for i in x.index.values],subset=subs,axis=0)
             upd=df_exp.style.apply(lambda x: ['background-color: #445F22' if (i == id) else '' for i in x.index.values],subset=subs,axis=0)
-            exp.subheader("Previous Data")
-            exp.dataframe(prev)
-            exp.subheader("Updated Data")
-            exp.dataframe(upd)
+            st.subheader("Previous Data")
+            st.dataframe(prev)
+            st.subheader("Updated Data")
+            st.dataframe(upd)
             if st.button("Confirm"):
                 save_data(df_exp)
             elif st.button("Cancel"):
