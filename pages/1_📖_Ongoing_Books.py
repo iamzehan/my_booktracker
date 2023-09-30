@@ -104,15 +104,17 @@ if __name__ == '__main__':
     st.header("📖 Ongoing Books")
     st.markdown("Track books that are currently being read...")
     st.sidebar.header(" 📖 Ongoing Books")
-        
+    
     df=pd.read_csv('./data/books.csv')
     df = df[df['status']=='Ongoing']
+    
     try:
         main(df,st.radio("Select",["Show Chart","Show Data"],horizontal=True))
     except:
         st.error('We have encountered some error!')
+        
     # Include the current year in the footer
     footer = f'© {datetime.datetime.now().year} Copyright | Made by <a href="https://ziaulkarim.netlify.app" >Md. Ziaul Karim</a>'
-    hide_streamlit_style = f"""<div class="myFooter">{footer}</a> </div>
+    hide_streamlit_style = f"""<div class="myFooter">© {datetime.datetime.now().year} Copyright | Made by <a href="https://ziaulkarim.netlify.app" >Md. Ziaul Karim</a></a> </div>
                 """
     st.markdown(hide_streamlit_style, unsafe_allow_html=True) 
