@@ -80,6 +80,8 @@ if __name__=='__main__':
             </head>
             """
         st.markdown(hide_streamlit_style, unsafe_allow_html=True)
+        if 'df' not in st.session_state:
+            st.session_state.df = pd.read_csv('./data/books.csv')
         main()
     else:
         hide_streamlit_style = """
