@@ -68,9 +68,11 @@ if __name__ == "__main__":
     st.sidebar.header("📚 Add a new Book")
     st.markdown("Add a new book that you are planning to read")
 
-
-
-    df=pd.read_csv('./data/books.csv')
+    if 'df' not in st.session_state:
+            st.session_state.df = pd.read_csv('./data/books.csv')
+    df = st.session_state.df
+    
+    #df=pd.read_csv('./data/books.csv')
     df_exp=df.copy()
 
     main(df,df_exp)
