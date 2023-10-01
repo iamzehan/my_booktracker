@@ -4,7 +4,7 @@ import streamlit as st
 import importlib.util
 
 # Specify the path to the module in the root directory
-module_file_path = "1_📖_Ongoing_Books.py"  # Use ".." to go up to the root directory
+module_file_path = "./1_📖_Ongoing_Books.py"  # Use ".." to go up to the root directory
 
 # Create a module name (alias)
 module_name = "book_tracker_module"
