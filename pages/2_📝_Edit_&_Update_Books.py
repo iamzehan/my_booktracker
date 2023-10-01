@@ -104,7 +104,11 @@ if __name__ == '__main__':
     st.sidebar.header("📝 Update Books")
 
     #variables and functions
-    df=pd.read_csv('./data/books.csv')
+    if 'df' not in st.session_state:
+        st.session_state.df = pd.read_csv('.data/books.csv')
+    else:
+        df = st.session_state.df
+    # df=pd.read_csv('./data/books.csv')
     df_exp=df.copy()
     status=st.radio('Choose:',['Ongoing','Upcoming'],horizontal=True)
     books_df=df[df['status']==status]
