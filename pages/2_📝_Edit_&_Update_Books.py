@@ -71,11 +71,11 @@ def main(df,df_exp,books_df):
     col1,col2= st.columns([0.5,0.5])
     with col1:        
         if st.button("Confirm"):
-            df_exp.style.clear()
+            df_exp=df_exp.style.clear()
             save_data(df_exp)
     with col2:
         if st.button("Cancel"):
-            df.style.clear()
+            df=df.style.clear()
             save_data(df)
 
 if __name__ == '__main__':
