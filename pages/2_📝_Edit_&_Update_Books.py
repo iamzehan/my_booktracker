@@ -60,12 +60,12 @@ def main(df,df_exp,books_df):
                 df_exp.loc[[id],["current_chapter","current_page","status"]]=filtered_data["current_chapter"],filtered_data["current_page"],"Ongoing"
         
         if df_exp["current_chapter"][id] != df["current_chapter"][id] or df_exp["current_page"][id] != df["current_page"][id]:
-            df=df.style.apply(lambda x: ['background-color:  #791400' if (i == id) else '' for i in x.index.values],subset=subs,axis=0)
-            df_exp=df_exp.style.apply(lambda x: ['background-color: #445F22' if (i == id) else '' for i in x.index.values],subset=subs,axis=0)
+            prev=df.style.apply(lambda x: ['background-color:  #791400' if (i == id) else '' for i in x.index.values],subset=subs,axis=0)
+            upd=df_exp.style.apply(lambda x: ['background-color: #445F22' if (i == id) else '' for i in x.index.values],subset=subs,axis=0)
             st.subheader("Previous Data")
-            st.dataframe(df)
+            st.dataframe(prev)
             st.subheader("Updated Data")
-            st.dataframe(df_exp)
+            st.dataframe(upd)
         else:
             st.write("`No Changes Detected`")
     col1,col2= st.columns([0.5,0.5])
