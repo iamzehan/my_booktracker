@@ -3,7 +3,7 @@ import pandas as pd
 import streamlit as st
 
 def save_data(data):
-    return data.to_csv('./data/books.csv',index=False)
+    return data.to_csv('https://raw.githubusercontent.com/iamzehan/my_booktracker/main/data/books.csv',index=False)
     
 def main(df,df_exp,books_df):
     selected_book=st.selectbox('Which Books you want to update?',list(books_df['title']))
