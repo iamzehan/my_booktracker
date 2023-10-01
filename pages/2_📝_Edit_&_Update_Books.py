@@ -106,8 +106,7 @@ if __name__ == '__main__':
     #variables and functions
     if 'df' not in st.session_state:
         st.session_state.df = pd.read_csv('./data/books.csv')
-    else:
-        df = st.session_state.df
+    df = st.session_state.df
     # df=pd.read_csv('./data/books.csv')
     df_exp=df.copy()
     status=st.radio('Choose:',['Ongoing','Upcoming'],horizontal=True)
