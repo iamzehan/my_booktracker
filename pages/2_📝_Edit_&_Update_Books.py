@@ -69,11 +69,11 @@ def main(df,df_exp,books_df):
     col1,col2= st.columns([0.5,0.5])
     with col1:        
         if st.button("Confirm"):
-            df.session.state=df_exp
+            st.session_state.df=df_exp
             save_data(df_exp)
     with col2:
         if st.button("Cancel"):
-            save_data(df.session.state)
+            save_data(st.session_state.df)
 
 if __name__ == '__main__':
 
