@@ -1,7 +1,18 @@
 import datetime
 import pandas as pd
 import streamlit as st
-import 1_📖_Ongoing_Books as Ongoing 
+import importlib.util
+
+# Specify the path to the module in the root directory
+module_file_path = "1_📖_Ongoing_Books.py"  # Use ".." to go up to the root directory
+
+# Create a module name (alias)
+module_name = "book_tracker_module"
+
+# Load the module using importlib
+spec = importlib.util.spec_from_file_location(module_name, module_file_path)
+module = importlib.util.module_from_spec(spec)
+spec.loader.exec_module(module)
 
 def save_data(data):
     return data.to_csv('./data/books.csv',index=False)
@@ -106,7 +117,8 @@ if __name__ == '__main__':
 
     #variables and functions
     # df=pd.read_csv('./data/books.csv')
-    df = Ongoing.df
+    # Access the df variable from Book_tracker.py
+    df = module.df
     df_exp=df.copy()
     status=st.radio('Choose:',['Ongoing','Upcoming'],horizontal=True)
     books_df=df[df['status']==status]
