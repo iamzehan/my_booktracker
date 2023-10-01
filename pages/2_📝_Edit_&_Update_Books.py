@@ -18,7 +18,7 @@ def main(df,df_exp,books_df):
     with col1:
         edited_page=st.number_input(label="Current Page",value=filtered_data['current_page'],max_value=max_pages)
     with col2:
-        edited_chapter=st.selectbox(label="Current Chapter",list(filtered_data['current_chapter'])
+        edited_chapter=st.selectbox(label="Current Chapter",value=filtered_data['current_chapter'],max_value=max_chapters)
 
     subs=[] #subset of columns to be changed and to be hightlighted
     
