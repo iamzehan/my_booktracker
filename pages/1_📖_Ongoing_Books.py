@@ -104,8 +104,10 @@ if __name__ == '__main__':
     st.header("📖 Ongoing Books")
     st.markdown("Track books that are currently being read...")
     st.sidebar.header(" 📖 Ongoing Books")
-    
-    df=pd.read_csv('./data/books.csv')
+    if 'df' not in st.session_state:
+            st.session_state.df = pd.read_csv('./data/books.csv')
+    df = st.session_state.df
+    #df=pd.read_csv('./data/books.csv')
     df = df[df['status']=='Ongoing']
     
     try:
