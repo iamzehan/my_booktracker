@@ -1,6 +1,7 @@
 import datetime
 import pandas as pd
 import streamlit as st
+from Ongoing_Books import df
 
 def save_data(data):
     return data.to_csv('./data/books.csv',index=False)
@@ -104,7 +105,8 @@ if __name__ == '__main__':
     st.sidebar.header("📝 Update Books")
 
     #variables and functions
-    df=pd.read_csv('./data/books.csv')
+    # df=pd.read_csv('./data/books.csv')
+    df = df
     df_exp=df.copy()
     status=st.radio('Choose:',['Ongoing','Upcoming'],horizontal=True)
     books_df=df[df['status']==status]
