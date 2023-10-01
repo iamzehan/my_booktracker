@@ -82,6 +82,7 @@ if __name__=='__main__':
         st.markdown(hide_streamlit_style, unsafe_allow_html=True)
         if 'df' not in st.session_state:
             st.session_state.df = pd.read_csv('./data/books.csv')
+        df = st.session_state.df
         main()
     else:
         hide_streamlit_style = """
