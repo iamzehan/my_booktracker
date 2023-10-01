@@ -106,7 +106,7 @@ if __name__ == '__main__':
 
     #variables and functions
     # df=pd.read_csv('./data/books.csv')
-    df = df
+    df = Ongoing_Books.df
     df_exp=df.copy()
     status=st.radio('Choose:',['Ongoing','Upcoming'],horizontal=True)
     books_df=df[df['status']==status]
