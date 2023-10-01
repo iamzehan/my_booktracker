@@ -1,7 +1,7 @@
 import datetime
 import pandas as pd
 import streamlit as st
-from Ongoing_Books import df
+import Ongoing_Books
 
 def save_data(data):
     return data.to_csv('./data/books.csv',index=False)
