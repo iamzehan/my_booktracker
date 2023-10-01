@@ -63,9 +63,9 @@ def main(df,df_exp,books_df):
             df=df.style.apply(lambda x: ['background-color:  #791400' if (i == id) else '' for i in x.index.values],subset=subs,axis=0)
             df_exp=df_exp.style.apply(lambda x: ['background-color: #445F22' if (i == id) else '' for i in x.index.values],subset=subs,axis=0)
             st.subheader("Previous Data")
-            st.dataframe(prev)
+            st.dataframe(df)
             st.subheader("Updated Data")
-            st.dataframe(upd)
+            st.dataframe(df_exp)
         else:
             st.write("`No Changes Detected`")
     col1,col2= st.columns([0.5,0.5])
