@@ -4,7 +4,7 @@ import streamlit as st
 from Book_Tracker import check_password
 
 def save_data(data):
-    return data.to_csv('./data/books.csv',index=False)
+    return data.to_csv('./data/data.csv',index=False)
     
 def cancel_data(data,id):
     data=data.drop(axis=0,index=id)
@@ -71,10 +71,10 @@ if __name__ == "__main__":
         st.markdown("Add a new book that you are planning to read")
     
         if 'df' not in st.session_state:
-                st.session_state.df = pd.read_csv('./data/books.csv')
+                st.session_state.df = pd.read_csv('./data/data.csv')
         df = st.session_state.df
         
-        #df=pd.read_csv('./data/books.csv')
+        #df=pd.read_csv('./data/data.csv')
         df_exp=df.copy()
     
         main(df,df_exp)

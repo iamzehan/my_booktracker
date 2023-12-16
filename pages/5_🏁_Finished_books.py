@@ -44,9 +44,9 @@ if __name__ == '__main__':
       st.markdown(hide_streamlit_style, unsafe_allow_html=True) 
                                                               #main
       if 'df' not in st.session_state:
-        st.session_state.df = pd.read_csv('./data/books.csv')
+        st.session_state.df = pd.read_csv('./data/data.csv')
       df = st.session_state.df
-      #df=pd.read_csv('./data/books.csv')
+      #df=pd.read_csv('./data/data.csv')
       data=df[df['status']=='Finished']
       main(data)
                                                               #footer

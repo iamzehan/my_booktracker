@@ -4,7 +4,7 @@ import streamlit as st
 from Book_Tracker import check_password
 
 def save_data(data):
-    return data.to_csv('https://raw.githubusercontent.com/iamzehan/my_booktracker/main/data/books.csv',index=False)
+    return data.to_csv('https://raw.githubusercontent.com/iamzehan/my_booktracker/main/data/data.csv',index=False)
     
 def main(df,df_exp,books_df):
     selected_book=st.selectbox('Which Books you want to update?',list(books_df['title']))
@@ -107,9 +107,9 @@ if __name__ == '__main__':
     
         #variables and functions
         if 'df' not in st.session_state:
-            st.session_state.df = pd.read_csv('./data/books.csv')
+            st.session_state.df = pd.read_csv('./data/data.csv')
         df = st.session_state.df
-        # df=pd.read_csv('./data/books.csv')
+        # df=pd.read_csv('./data/data.csv')
         df_exp=df.copy()
         status=st.radio('Choose:',['Ongoing','Upcoming'],horizontal=True)
         books_df=df[df['status']==status]

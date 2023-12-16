@@ -37,9 +37,9 @@ if __name__ == '__main__':
     
                                                         #main
         if 'df' not in st.session_state:
-                st.session_state.df = pd.read_csv('./data/books.csv')
+                st.session_state.df = pd.read_csv('./data/data.csv')
         df = st.session_state.df
-        #df=pd.read_csv('./data/books.csv')
+        #df=pd.read_csv('./data/data.csv')
         data=df[df['status']=='Upcoming']
         data = pd.DataFrame({'Name':data['title'], 'Chapters':data['total_chapters'],'Pages':data['total_pages']})
         data=data.sort_values(by=['Pages'],ascending=True)
