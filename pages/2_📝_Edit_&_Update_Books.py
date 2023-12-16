@@ -76,7 +76,7 @@ def main(df,df_exp,books_df):
             save_data(st.session_state.df)
 
 if __name__ == '__main__':
-    if checkout_password():
+    if check_password():
         #config
         st.set_page_config(page_title="Update", page_icon="📝")
     
