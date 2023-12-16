@@ -86,6 +86,7 @@ if __name__ == '__main__':
                     <head>
                     <style>
                     #MainMenu{visibility: hidden;}
+                    .st-emotion-cache-1cypcdb eczjsme11{display: block}
                     .css-fk4es0{display:none;}
                     .css-1lsmgbg {display: none;}
                     .myFooter{color:rgba(250, 250, 250, 0.6); margin-top: 150px; text-align: center;}
@@ -120,4 +121,13 @@ if __name__ == '__main__':
         # Include the current year in the footer
         hide_streamlit_style = f"""<div class="myFooter">© {datetime.datetime.now().year} Copyright | Made by <a href="https://ziaulkarim.netlify.app" >Md. Ziaul Karim</a></a> </div>
                     """
+        st.markdown(hide_streamlit_style, unsafe_allow_html=True) 
+    else:
+        hide_streamlit_style ="""
+        <head>
+        <style>
+            .st-emotion-cache-1cypcdb eczjsme11{display: none!important}
+        </style>
+        </head>
+        """
         st.markdown(hide_streamlit_style, unsafe_allow_html=True) 
