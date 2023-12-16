@@ -1,6 +1,0 @@
-.streamlit/secrets.toml
-run.sh
-virtualenvironment.sh
-uninstall.sh
-data/books.csv
-__pycache__
