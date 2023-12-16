@@ -3,6 +3,7 @@ import pandas as pd
 import seaborn as sns
 import streamlit as st
 import matplotlib.pyplot as plt
+from Book_Tracker import check_password
 
 @st.cache(allow_output_mutation=True)
 def calculate_percentile(df):
@@ -79,43 +80,44 @@ def main(running_books_df,selected_option):
         st.pyplot(fig)    
      
 if __name__ == '__main__':
-    st.set_page_config(page_title="Running Books", page_icon="📖")
-    hide_streamlit_style = """
-                <head>
-                <style>
-                #MainMenu{visibility: hidden;}
-                .css-fk4es0{display:none;}
-                .css-1lsmgbg {display: none;}
-                .myFooter{color:rgba(250, 250, 250, 0.6); margin-top: 150px; text-align: center;}
-                .myFooter a{color: rgb(255, 75, 75); font-weight: bolder;}
-                .css-10trblm{color:rgb(255, 75, 75); text-align:center;}
-                .css-16huue1 {color:rgb(255, 75, 75); font-size:18px;}
-                .css-v37k9u p{color:#edf5e1; font-size: 18px;}
-                .css-1q8dd3e{color:rgb(255, 75, 75);}
-                .css-1q8dd3e:hover{color:#edf5e1; border-color:rgb(255, 75, 75);}
-                .css-17ziqus {background-color: brown; visibility: visible}
-                body {text-align:center;}
-                p{text-align: center;}
-                </style>
-                <title> Book Tracker </title>
-                </head>
-                """
-    st.markdown(hide_streamlit_style, unsafe_allow_html=True)
-    st.header("📖 Ongoing Books")
-    st.markdown("Track books that are currently being read...")
-    st.sidebar.header(" 📖 Ongoing Books")
-    if 'df' not in st.session_state:
-            st.session_state.df = pd.read_csv('./data/books.csv')
-    df = st.session_state.df
-    #df=pd.read_csv('./data/books.csv')
-    df = df[df['status']=='Ongoing']
-    
-    try:
-        main(df,st.radio("Select",["Show Chart","Show Data"],horizontal=True))
-    except:
-        st.error('We have encountered some error!')
+    if check_password():
+        st.set_page_config(page_title="Running Books", page_icon="📖")
+        hide_streamlit_style = """
+                    <head>
+                    <style>
+                    #MainMenu{visibility: hidden;}
+                    .css-fk4es0{display:none;}
+                    .css-1lsmgbg {display: none;}
+                    .myFooter{color:rgba(250, 250, 250, 0.6); margin-top: 150px; text-align: center;}
+                    .myFooter a{color: rgb(255, 75, 75); font-weight: bolder;}
+                    .css-10trblm{color:rgb(255, 75, 75); text-align:center;}
+                    .css-16huue1 {color:rgb(255, 75, 75); font-size:18px;}
+                    .css-v37k9u p{color:#edf5e1; font-size: 18px;}
+                    .css-1q8dd3e{color:rgb(255, 75, 75);}
+                    .css-1q8dd3e:hover{color:#edf5e1; border-color:rgb(255, 75, 75);}
+                    .css-17ziqus {background-color: brown; visibility: visible}
+                    body {text-align:center;}
+                    p{text-align: center;}
+                    </style>
+                    <title> Book Tracker </title>
+                    </head>
+                    """
+        st.markdown(hide_streamlit_style, unsafe_allow_html=True)
+        st.header("📖 Ongoing Books")
+        st.markdown("Track books that are currently being read...")
+        st.sidebar.header(" 📖 Ongoing Books")
+        if 'df' not in st.session_state:
+                st.session_state.df = pd.read_csv('./data/books.csv')
+        df = st.session_state.df
+        #df=pd.read_csv('./data/books.csv')
+        df = df[df['status']=='Ongoing']
         
-    # Include the current year in the footer
-    hide_streamlit_style = f"""<div class="myFooter">© {datetime.datetime.now().year} Copyright | Made by <a href="https://ziaulkarim.netlify.app" >Md. Ziaul Karim</a></a> </div>
-                """
-    st.markdown(hide_streamlit_style, unsafe_allow_html=True) 
+        try:
+            main(df,st.radio("Select",["Show Chart","Show Data"],horizontal=True))
+        except:
+            st.error('We have encountered some error!')
+            
+        # Include the current year in the footer
+        hide_streamlit_style = f"""<div class="myFooter">© {datetime.datetime.now().year} Copyright | Made by <a href="https://ziaulkarim.netlify.app" >Md. Ziaul Karim</a></a> </div>
+                    """
+        st.markdown(hide_streamlit_style, unsafe_allow_html=True) 
