@@ -31,6 +31,7 @@ def main(df,df_exp):
                 preview=df_exp.style.apply(lambda x: ['background-color: green' if (i == id) else '' for i in x.index.values], axis=0)
                 st.dataframe(preview,width=4000)
                 st.write("```Saved```")
+                st.session_state.df = df_exp
                 save_data(df_exp)
             else:
                 st.write("```Input Boxes are empty...```")
