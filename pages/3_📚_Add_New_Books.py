@@ -41,7 +41,7 @@ def main(df,df_exp):
             ### If after submission you want to reset, go to the len(df) and delete that row###
 
 if __name__ == "__main__":
-    if check_passoword():
+    if check_password():
         #config
         st.set_page_config(page_title="Add Book", page_icon="📚")
     
