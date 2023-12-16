@@ -77,43 +77,43 @@ def main(df,df_exp,books_df):
             save_data(st.session_state.df)
 
 if __name__ == '__main__':
+    if check_password():
+        #config
+        st.set_page_config(page_title="Update", page_icon="📝")
     
-    #config
-    st.set_page_config(page_title="Update", page_icon="📝")
-
-    #css styles
-    hide_streamlit_style = """
-            <head>
-            <style>
-            #MainMenu{visibility: hidden;}
-            .css-fk4es0{display:none;}
-            .css-1lsmgbg {display: none;}
-            .myFooter{color:rgba(250, 250, 250, 0.6); margin-top: 150px; text-align: center;}
-            .myFooter a{color: rgb(255, 75, 75); font-weight: bolder;}
-            .css-10trblm{color:rgb(255, 75, 75);}
-            .css-16huue1 {color:rgb(255, 75, 75); font-size:18px;}
-            .css-v37k9u p{color:#edf5e1; font-size: 18px;}
-            .css-1q8dd3e{color:rgb(255, 75, 75);}
-            .css-1q8dd3e:hover{color:#edf5e1; border-color:rgb(255, 75, 75);}
-            .css-17ziqus {background-color: brown; visibility: visible}
-            body{text-align:center;}
-            </style>
-            <title> Book Tracker </title>
-            </head>
-            """
-    st.markdown(hide_streamlit_style, unsafe_allow_html=True) 
-    st.header("📝Edit and Update")
-    st.sidebar.header("📝 Update Books")
-
-    #variables and functions
-    if 'df' not in st.session_state:
-        st.session_state.df = pd.read_csv('./data/books.csv')
-    df = st.session_state.df
-    # df=pd.read_csv('./data/books.csv')
-    df_exp=df.copy()
-    status=st.radio('Choose:',['Ongoing','Upcoming'],horizontal=True)
-    books_df=df[df['status']==status]
+        #css styles
+        hide_streamlit_style = """
+                <head>
+                <style>
+                #MainMenu{visibility: hidden;}
+                .css-fk4es0{display:none;}
+                .css-1lsmgbg {display: none;}
+                .myFooter{color:rgba(250, 250, 250, 0.6); margin-top: 150px; text-align: center;}
+                .myFooter a{color: rgb(255, 75, 75); font-weight: bolder;}
+                .css-10trblm{color:rgb(255, 75, 75);}
+                .css-16huue1 {color:rgb(255, 75, 75); font-size:18px;}
+                .css-v37k9u p{color:#edf5e1; font-size: 18px;}
+                .css-1q8dd3e{color:rgb(255, 75, 75);}
+                .css-1q8dd3e:hover{color:#edf5e1; border-color:rgb(255, 75, 75);}
+                .css-17ziqus {background-color: brown; visibility: visible}
+                body{text-align:center;}
+                </style>
+                <title> Book Tracker </title>
+                </head>
+                """
+        st.markdown(hide_streamlit_style, unsafe_allow_html=True) 
+        st.header("📝Edit and Update")
+        st.sidebar.header("📝 Update Books")
     
-    main(df,df_exp,books_df)
-    hide_streamlit_style = f"""<div class="myFooter">© { datetime.datetime.now().year} Copyright | Made by <a href="https://ziaulkarim.netlify.app" >Md. Ziaul Karim</a></a> </div>"""
-    st.markdown(hide_streamlit_style, unsafe_allow_html=True) 
+        #variables and functions
+        if 'df' not in st.session_state:
+            st.session_state.df = pd.read_csv('./data/books.csv')
+        df = st.session_state.df
+        # df=pd.read_csv('./data/books.csv')
+        df_exp=df.copy()
+        status=st.radio('Choose:',['Ongoing','Upcoming'],horizontal=True)
+        books_df=df[df['status']==status]
+        
+        main(df,df_exp,books_df)
+        hide_streamlit_style = f"""<div class="myFooter">© { datetime.datetime.now().year} Copyright | Made by <a href="https://ziaulkarim.netlify.app" >Md. Ziaul Karim</a></a> </div>"""
+        st.markdown(hide_streamlit_style, unsafe_allow_html=True) 
